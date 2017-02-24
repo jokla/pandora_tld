@@ -92,6 +92,9 @@ namespace pandora_vision
   **/
   Predator::~Predator(void)
   {
+    std_msgs::Int8 status_msg;
+    status_msg.data = 0;
+    _predatorStatusPublisher.publish(status_msg);
     ROS_INFO("[predator_node] : Destroying Predator instance");
   }
 
@@ -217,6 +220,9 @@ namespace pandora_vision
       else
       {
         cv::Rect temp = cv::Rect(0, 0, 0, 0);
+        std_msgs::Int8 status_msg;
+        status_msg.data = 0;
+        _predatorStatusPublisher.publish(status_msg);
       }
     }
 
@@ -333,6 +339,9 @@ namespace pandora_vision
     {
       _predatorPublisher =
           _nh.advertise<geometry_msgs::Polygon>(param, 1000);
+
+      _predatorStatusPublisher =
+          _nh.advertise<std_msgs::Int8>(param+"/status",1000);
     }
     else
     {
@@ -563,6 +572,10 @@ namespace pandora_vision
     send_msg.points.push_back(point);
 
     _predatorPublisher.publish(send_msg);
+
+    std_msgs::Int8 status_msg;
+    status_msg.data = 1;
+    _predatorStatusPublisher.publish(status_msg);
   }
 
   /**

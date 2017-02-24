@@ -24,6 +24,7 @@
 #include "ros/ros.h"
 #include <ros/package.h>
 
+#include <std_msgs/Int8.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
 #include <image_transport/image_transport.h>
@@ -73,6 +74,9 @@ namespace pandora_vision
       
       //!<Predator Publisher
       ros::Publisher _predatorPublisher;
+
+      //!<Predator Publisher Status
+      ros::Publisher _predatorStatusPublisher;
 
       //!< ROS service to initiate hunting
       ros::Subscriber _predatorHuntRectangle;
